@@ -19,6 +19,7 @@
 @interface FFFrameExtractor : NSObject
 
 - (id)initWithInputPath:(NSString *)path;
+- (BOOL)start;
 - (BOOL)stop;
 - (BOOL)nextFrame;
 - (UIImage *)frameImage;

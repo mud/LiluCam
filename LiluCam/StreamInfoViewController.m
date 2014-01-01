@@ -15,15 +15,6 @@
 
 @implementation StreamInfoViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -49,6 +40,11 @@
     if (url) {
         self.urlField.text = url;
     }
+    
+    NSString *cgiURL = [defaults objectForKey:@"cgiPath"];
+    if (cgiURL) {
+        self.cgiField.text = cgiURL;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,7 +55,9 @@
 
 - (IBAction)submitLogin:(id)sender
 {
-    if (self.usernameField.text.length == 0 || self.passwordField.text.length == 0 || self.urlField.text.length == 0) {
+    if (self.usernameField.text.length == 0 ||
+        self.passwordField.text.length == 0 ||
+        self.urlField.text.length == 0) {
         UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Login Error" message:@"You must specify all fields." delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
         [av show];
     } else {

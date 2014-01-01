@@ -29,6 +29,8 @@
     AVFrame *pFrame;
     AVPicture picture;
     struct SwsContext *imageConvertContext;
+    
+    BOOL _running;
 }
 
 
@@ -50,23 +52,7 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
         av_register_all();
         
         self.inputPath = path;
-        
-        // initialize format context and packet
-        pFormatContext = avformat_alloc_context();
-        av_init_packet(&packet);
-
-        if (SetupAVContextForURL(&pFormatContext, &pCodecContext, &pAudioCodecContext, &videoStream, &audioStream, [self.inputPath UTF8String]) != 0) {
-            NSLog(@"Couldn't initialize FFFrameExtractor.");
-            return nil;
-        }
-        
-        pFrame = avcodec_alloc_frame();
-        int sourceWidth = pCodecContext->width;
-        int sourceHeight = pCodecContext->height;
-        
-        // setup picture and swscaler
-        imageConvertContext = sws_getContext(sourceWidth, sourceHeight, pCodecContext->pix_fmt, sourceWidth, sourceHeight, PIX_FMT_RGB24, SWS_FAST_BILINEAR, NULL, NULL, NULL);
-        avpicture_alloc(&picture, PIX_FMT_RGB24, sourceWidth, sourceHeight);
+        _running = NO;
         
         // create background queue
         backgroundQueue = dispatch_queue_create("com.buzamoto.FFFrameExtractor", NULL);
@@ -82,6 +68,10 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
 
 - (BOOL)nextFrame
 {
+    if (!_running) {
+        return NO;
+    }
+    
     int frameFinished = 0;
     
     while (!frameFinished && av_read_frame(pFormatContext, &packet) >= 0) {
@@ -99,9 +89,42 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
     return frameFinished != 0;
 }
 
+- (BOOL)start
+{
+    if (_running) {
+        NSLog(@"FFFrameExtractor is already running");
+        return NO;
+    }
+    NSLog(@"FFFrameExtractor starting");
+    
+    // initialize format context and packet
+    pFormatContext = avformat_alloc_context();
+    av_init_packet(&packet);
+    
+    if (SetupAVContextForURL(&pFormatContext, &pCodecContext, &pAudioCodecContext, &videoStream, &audioStream, [self.inputPath UTF8String]) != 0) {
+        NSLog(@"Couldn't initialize FFFrameExtractor.");
+        return NO;
+    }
+    
+    pFrame = avcodec_alloc_frame();
+    int sourceWidth = pCodecContext->width;
+    int sourceHeight = pCodecContext->height;
+    
+    // setup picture and swscaler
+    imageConvertContext = sws_getContext(sourceWidth, sourceHeight, pCodecContext->pix_fmt, sourceWidth, sourceHeight, PIX_FMT_RGB24, SWS_FAST_BILINEAR, NULL, NULL, NULL);
+    avpicture_alloc(&picture, PIX_FMT_RGB24, sourceWidth, sourceHeight);
+    
+    _running = YES;
+    
+    return YES;
+}
+
 - (BOOL)stop
 {
-    [self cleanup];
+    NSLog(@"FFFrameExtractor stopping");
+    _running = NO;
+    dispatch_suspend(backgroundQueue);
+    [self performSelector:@selector(cleanup) withObject:nil afterDelay:2];
     return YES;
 }
 
@@ -116,14 +139,19 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
 - (void)processNextFrame
 {
     dispatch_async(backgroundQueue, ^(void){
-        BOOL nextFrame = [self nextFrame];
-        if (nextFrame) {
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                [self.delegate updateWithCurrentUIImage:[self frameImage]];
-            });
+        if (_running) {
+            BOOL nextFrame = [self nextFrame];
+            if (nextFrame) {
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    [self.delegate updateWithCurrentUIImage:[self frameImage]];
+                });
+            } else {
+                NSLog(@"Error decoding next frame.");
+            }
         } else {
-            NSLog(@"Error decoding next frame.");
+            NSLog(@"No longer run this");
         }
+        
     });
 }
 

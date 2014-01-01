@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface StreamInfoViewController : UIViewController
+
 - (IBAction)submitLogin:(id)sender;
+
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UITextField *urlField;
+@property (weak, nonatomic) IBOutlet UITextField *cgiField;
 
 @end

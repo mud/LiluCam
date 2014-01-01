@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--Stream Info View Controller-->
+        <!--Stream Info View Controller - Lilu Cam-->
         <scene sceneID="SOx-Xu-S20">
             <objects>
                 <viewController id="7bs-9m-xNi" customClass="StreamInfoViewController" sceneMemberID="viewController">
@@ -17,19 +17,19 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vqp-tf-VZL">
-                                <rect key="frame" x="20" y="174" width="285" height="30"/>
+                                <rect key="frame" x="18" y="78" width="285" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zwp-gQ-JBO">
-                                <rect key="frame" x="20" y="212" width="285" height="30"/>
+                                <rect key="frame" x="18" y="116" width="285" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fj7-Q9-Cxy">
-                                <rect key="frame" x="138" y="288" width="49" height="30"/>
+                                <rect key="frame" x="136" y="230" width="49" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Submit">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -38,8 +38,8 @@
                                     <action selector="submitLogin:" destination="7bs-9m-xNi" eventType="touchUpInside" id="fWb-L9-sda"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="10.0.1.11:88" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z6q-bL-pUO">
-                                <rect key="frame" x="20" y="250" width="285" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Host 10.0.1.11:88" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z6q-bL-pUO">
+                                <rect key="frame" x="18" y="154" width="285" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -47,7 +47,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Wj4-Jh-zUN">
+                    <navigationItem key="navigationItem" title="Lilu Cam" id="Wj4-Jh-zUN">
                         <barButtonItem key="backBarButtonItem" title="Stream Info" id="8e8-Cz-Elx"/>
                     </navigationItem>
                     <connections>
@@ -95,6 +95,7 @@
                                             <action selector="toggleVideo:" destination="vXZ-lx-hvc" id="fOr-hQ-Aqo"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="U3R-3q-r2d"/>
                                     <barButtonItem title="Light On" id="5w0-Cx-EZk">
                                         <connections>
                                             <action selector="lightOn:" destination="vXZ-lx-hvc" id="xBP-32-wkr"/>
@@ -115,6 +116,7 @@
                         <outlet property="imageView" destination="jBg-GM-kop" id="hzr-RJ-YNz"/>
                         <outlet property="playButton" destination="7AG-d7-Rx0" id="Dsy-fp-mGx"/>
                         <outlet property="scrollView" destination="PIC-kt-f9S" id="znZ-8r-BUO"/>
+                        <outlet property="toolbar" destination="S0m-H8-BNZ" id="Jw0-de-3A9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

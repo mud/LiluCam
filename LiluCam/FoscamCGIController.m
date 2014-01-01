@@ -47,10 +47,11 @@ NSString* const LCCameraReset           = @"ptzReset";
 @end
 
 
-@interface FoscamCGIController () {
+@interface FoscamCGIController () <NSURLSessionDelegate> {
     NSString *_username;
     NSString *_password;
     NSString *_cgiPath;
+    NSURLSession *_session;
     dispatch_queue_t backgroundQueue;
 }
 
@@ -71,6 +72,9 @@ NSString* const LCCameraReset           = @"ptzReset";
         _cgiPath = cgiPath;
         _username = username;
         _password = password;
+        // create session
+        _session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+        
         // create background queue
         backgroundQueue = dispatch_queue_create("com.buzamoto.FoscamCGIController", NULL);
     }
@@ -134,7 +138,7 @@ NSString* const LCCameraReset           = @"ptzReset";
 
 - (NSString *)cgiPathForParameters:(NSDictionary *)params
 {
-    return [NSString stringWithFormat:@"%@?%@", _cgiPath, [params toParameterString]];
+    return [NSString stringWithFormat:@"http://%@?%@", _cgiPath, [params toParameterString]];
 }
 
 - (void)sendParameterPath:(NSString *)parameterPath withCompletionHandler:(void (^)(NSData *data, NSURLResponse *response, NSError *error))completionHandler
@@ -143,7 +147,7 @@ NSString* const LCCameraReset           = @"ptzReset";
         NSURL *url = [NSURL URLWithString:parameterPath];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         
-        NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
+        NSURLSessionDataTask *task = [_session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
             // do some processing before calling the completion handler
             
             // like processing the XML in data
@@ -164,6 +168,15 @@ NSString* const LCCameraReset           = @"ptzReset";
     [self sendParameterPath:paramsPath withCompletionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
         NSLog(@"Completed tasks for: %@", paramsPath);
     }];
+}
+
+#pragma mark - NSURLSessionDataTask Delegate
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
+{
+    // If the CGI URL is SSL, most likely the domain has a self assigned cert. We're going to trust it for now.
+    NSLog(@"received challenge");
+    completionHandler(NSURLSessionAuthChallengeUseCredential, [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust]);
 }
 
 @end
