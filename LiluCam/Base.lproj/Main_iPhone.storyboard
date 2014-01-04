@@ -64,7 +64,7 @@
         <!--Camera View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="CameraViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="vXZ-lx-hvc" customClass="CameraViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="78N-f6-cQr"/>
                         <viewControllerLayoutGuide type="bottom" id="iAV-qm-adJ"/>
@@ -73,7 +73,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" maximumZoomScale="5" translatesAutoresizingMaskIntoConstraints="NO" id="PIC-kt-f9S">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" maximumZoomScale="5" translatesAutoresizingMaskIntoConstraints="NO" id="PIC-kt-f9S">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -82,11 +82,16 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="568" id="01A-aP-wOM"/>
+                                    <constraint firstAttribute="width" constant="320" id="e9n-Aq-tFy"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="fAi-dC-y69"/>
                                 </connections>
                             </scrollView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S0m-H8-BNZ">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.79999999999999982" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S0m-H8-BNZ">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
@@ -110,6 +115,13 @@
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PIC-kt-f9S" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="1Gs-YT-Ehx"/>
+                            <constraint firstItem="PIC-kt-f9S" firstAttribute="leading" secondItem="S0m-H8-BNZ" secondAttribute="leading" id="6eM-Uf-UYa"/>
+                            <constraint firstItem="PIC-kt-f9S" firstAttribute="bottom" secondItem="S0m-H8-BNZ" secondAttribute="bottom" id="7VB-dF-UBC"/>
+                            <constraint firstItem="PIC-kt-f9S" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Jkn-df-kpL"/>
+                            <constraint firstItem="PIC-kt-f9S" firstAttribute="trailing" secondItem="S0m-H8-BNZ" secondAttribute="trailing" id="mz4-q0-7kj"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fbi-Ds-znX"/>
                     <connections>

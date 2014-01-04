@@ -12,13 +12,14 @@
 
 #define CGI_PROXY @"http://10.0.1.11:88/cgi-bin/CGIProxy.fcgi"
 
-@interface CameraViewController () <FFFrameExtractorDelegate> {
+@interface CameraViewController () <FFFrameExtractorDelegate, UIGestureRecognizerDelegate> {
     FFFrameExtractor *frameExtractor;
     UIPinchGestureRecognizer *pinchGesture;
     FoscamCGIController *cameraController;
     NSTimer *playTimer;
     
     UITapGestureRecognizer *tapGesture;
+    BOOL _navigationHidden;
 }
 
 - (NSString *)rtspURL;
@@ -39,7 +40,17 @@
     
     // create tap gesture
     tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+    //tapGesture.delegate = self;
+    tapGesture.numberOfTapsRequired = 1;
+    tapGesture.numberOfTouchesRequired = 1;
+    [tapGesture requireGestureRecognizerToFail:self.scrollView.panGestureRecognizer];
+    //[self.scrollView addGestureRecognizer:tapGesture];
     [self.scrollView addGestureRecognizer:tapGesture];
+    _navigationHidden = NO;
+    
+    // specify background image
+    UIImage *backgroundImage = [UIImage imageNamed:@"cam-background.png"];
+    self.imageView.image = backgroundImage;
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,6 +76,9 @@
 {
     if ([self.playButton.title isEqualToString:@"Play"]) {
         self.playButton.title = @"Stop";
+        
+        // turn off dimming
+        [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
             [frameExtractor start];
@@ -97,18 +111,23 @@
 - (void)tapped:(UITapGestureRecognizer *)gesture
 {
     CGRect toolbarFrame = self.toolbar.frame;
-    if (self.navigationController.navigationBarHidden) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    CGRect navigationBarFrame = self.navigationController.navigationBar.frame;
+    if (_navigationHidden) {
+        navigationBarFrame.origin.y += 64;
         toolbarFrame.origin.y -= 44;
     } else {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
+        navigationBarFrame.origin.y -= 64;
         toolbarFrame.origin.y += 44;
     }
     
     // animate toolbar hide
     [UIView animateWithDuration:.3
                      animations:^(void){
+                         self.navigationController.navigationBar.frame = navigationBarFrame;
                          self.toolbar.frame = toolbarFrame;
+                     }
+                     completion:^(BOOL finished){
+                         _navigationHidden = !_navigationHidden;
                      }];
 }
 
@@ -128,6 +147,14 @@
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     return self.imageView;
+}
+
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
 }
 
 
@@ -155,8 +182,11 @@
 
 - (void)cancelDisplayNextFrame
 {
+    // turn off dimming
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
     frameExtractor.delegate = nil;
     [playTimer invalidate];
+    [frameExtractor stop];
 }
 
 @end

@@ -31,6 +31,7 @@
     struct SwsContext *imageConvertContext;
     
     BOOL _running;
+    BOOL _firstTime;
 }
 
 
@@ -53,6 +54,7 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
         
         self.inputPath = path;
         _running = NO;
+        _firstTime = YES;
         
         // create background queue
         backgroundQueue = dispatch_queue_create("com.buzamoto.FFFrameExtractor", NULL);
@@ -116,6 +118,13 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
     
     _running = YES;
     
+    // call only if previously suspended
+    if (_firstTime) {
+        _firstTime = NO;
+    } else {
+        dispatch_resume(backgroundQueue);
+    }
+    
     return YES;
 }
 
@@ -124,7 +133,8 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
     NSLog(@"FFFrameExtractor stopping");
     _running = NO;
     dispatch_suspend(backgroundQueue);
-    [self performSelector:@selector(cleanup) withObject:nil afterDelay:2];
+    //[self performSelector:@selector(cleanup) withObject:nil afterDelay:2];
+    [self cleanup];
     return YES;
 }
 
@@ -161,8 +171,13 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
 - (void)cleanup
 {
     NSLog(@"Cleanup FFFrameExtractor");
-    sws_freeContext(imageConvertContext);
-    avpicture_free(&picture);
+    
+    if (imageConvertContext != NULL) {
+        sws_freeContext(imageConvertContext);
+        imageConvertContext = NULL;
+        
+        avpicture_free(&picture);
+    }
     
     if (pFrame != NULL) {
         // need to clean pFrame buffer first
@@ -179,6 +194,9 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
         avcodec_close(pAudioCodecContext);
         pAudioCodecContext = NULL;
     }
+    
+    // close the input file
+    avformat_close_input(&pFormatContext);
     
     if (pFormatContext != NULL) {
         avformat_free_context(pFormatContext);

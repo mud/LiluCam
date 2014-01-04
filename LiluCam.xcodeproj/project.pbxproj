@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8214B3AC186BED8900C28B28 /* FoscamCGIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8214B3AB186BED8900C28B28 /* FoscamCGIController.m */; };
+		8229D7CE1878ADB300156553 /* cam-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8229D7CC1878ADB300156553 /* cam-background.png */; };
+		8229D7CF1878ADB300156553 /* cam-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8229D7CD1878ADB300156553 /* cam-background@2x.png */; };
 		826F793E1870DE9C00F4AF5B /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 826F793D1870DE9C00F4AF5B /* CameraViewController.m */; };
 		826F79411870E0CB00F4AF5B /* StreamInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 826F79401870E0CB00F4AF5B /* StreamInfoViewController.m */; };
 		828E711A185CE3F900EA1F48 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 828E7119185CE3F900EA1F48 /* Foundation.framework */; };
@@ -49,6 +51,8 @@
 /* Begin PBXFileReference section */
 		8214B3AA186BED8900C28B28 /* FoscamCGIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoscamCGIController.h; sourceTree = "<group>"; };
 		8214B3AB186BED8900C28B28 /* FoscamCGIController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoscamCGIController.m; sourceTree = "<group>"; };
+		8229D7CC1878ADB300156553 /* cam-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cam-background.png"; sourceTree = "<group>"; };
+		8229D7CD1878ADB300156553 /* cam-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cam-background@2x.png"; sourceTree = "<group>"; };
 		826F793C1870DE9C00F4AF5B /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		826F793D1870DE9C00F4AF5B /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		826F793F1870E0CB00F4AF5B /* StreamInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamInfoViewController.h; sourceTree = "<group>"; };
@@ -117,6 +121,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8229D7CB1878ADB300156553 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				8229D7CC1878ADB300156553 /* cam-background.png */,
+				8229D7CD1878ADB300156553 /* cam-background@2x.png */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		828E710D185CE3F800EA1F48 = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +179,7 @@
 				828E721E185EC2C400EA1F48 /* FFFrameExtractor.m */,
 				8214B3AA186BED8900C28B28 /* FoscamCGIController.h */,
 				8214B3AB186BED8900C28B28 /* FoscamCGIController.m */,
+				8229D7CB1878ADB300156553 /* Assets */,
 			);
 			path = LiluCam;
 			sourceTree = "<group>";
@@ -312,7 +326,9 @@
 			files = (
 				828E7130185CE3F900EA1F48 /* Main_iPad.storyboard in Resources */,
 				828E7135185CE3F900EA1F48 /* Images.xcassets in Resources */,
+				8229D7CF1878ADB300156553 /* cam-background@2x.png in Resources */,
 				828E712D185CE3F900EA1F48 /* Main_iPhone.storyboard in Resources */,
+				8229D7CE1878ADB300156553 /* cam-background.png in Resources */,
 				828E7124185CE3F900EA1F48 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
