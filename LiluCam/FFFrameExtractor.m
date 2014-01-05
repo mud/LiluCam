@@ -17,8 +17,6 @@
 // http://dranger.com/ffmpeg/tutorial01.html
 
 @interface FFFrameExtractor () {
-    dispatch_queue_t backgroundQueue;
-    
     AVFormatContext *pFormatContext;
     AVCodecContext *pCodecContext;
     AVCodecContext *pAudioCodecContext;
@@ -55,9 +53,6 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
         self.inputPath = path;
         _running = NO;
         _firstTime = YES;
-        
-        // create background queue
-        backgroundQueue = dispatch_queue_create("com.buzamoto.FFFrameExtractor", NULL);
     }
     return self;
 }
@@ -121,8 +116,6 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
     // call only if previously suspended
     if (_firstTime) {
         _firstTime = NO;
-    } else {
-        dispatch_resume(backgroundQueue);
     }
     
     return YES;
@@ -132,7 +125,6 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
 {
     NSLog(@"FFFrameExtractor stopping");
     _running = NO;
-    dispatch_suspend(backgroundQueue);
     //[self performSelector:@selector(cleanup) withObject:nil afterDelay:2];
     [self cleanup];
     return YES;
@@ -148,21 +140,19 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
 
 - (void)processNextFrame
 {
-    dispatch_async(backgroundQueue, ^(void){
-        if (_running) {
-            BOOL nextFrame = [self nextFrame];
-            if (nextFrame) {
-                dispatch_async(dispatch_get_main_queue(), ^(void){
-                    [self.delegate updateWithCurrentUIImage:[self frameImage]];
-                });
-            } else {
-                NSLog(@"Error decoding next frame.");
-            }
+    if (_running) {
+        BOOL nextFrame = [self nextFrame];
+        if (nextFrame) {
+            UIImage *image = [self frameImage];
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                [self.delegate updateWithCurrentUIImage:image];
+            });
         } else {
-            NSLog(@"No longer run this");
+            NSLog(@"Error decoding next frame.");
         }
-        
-    });
+    } else {
+        NSLog(@"No longer run this");
+    }
 }
 
 

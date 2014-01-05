@@ -20,6 +20,7 @@
     
     UITapGestureRecognizer *tapGesture;
     BOOL _navigationHidden;
+    NSOperationQueue *opQueue;
 }
 
 - (NSString *)rtspURL;
@@ -51,6 +52,10 @@
     // specify background image
     UIImage *backgroundImage = [UIImage imageNamed:@"cam-background.png"];
     self.imageView.image = backgroundImage;
+    
+    // create opQueue
+    opQueue = [[NSOperationQueue alloc] init];
+    opQueue.maxConcurrentOperationCount = 1; // set to 1 to force everything to run on one thread
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,17 +85,25 @@
         // turn off dimming
         [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
-            [frameExtractor start];
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                // start image display
-                playTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/30.0
-                                                             target:self
-                                                           selector:@selector(displayNextFrame:)
-                                                           userInfo:nil
-                                                            repeats:YES];
-            });
-        });
+        [opQueue addOperationWithBlock:^(void){
+            if ([frameExtractor start]) {
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    // start image display
+                    playTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/30.0
+                                                                 target:self
+                                                               selector:@selector(displayNextFrame:)
+                                                               userInfo:nil
+                                                                repeats:YES];
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"FFFrameExtractor Error" message:@"Couldn't start frame. Try again." delegate:Nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                    self.playButton.title = @"Play";
+                    [av show];
+                });
+            }
+        }];
+        
     } else {
         self.playButton.title = @"Play";
         [self cancelDisplayNextFrame];
@@ -173,10 +186,12 @@
 - (void)displayNextFrame:(NSTimer *)timer
 {
     if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
-        if (frameExtractor.delegate == nil) {
-            frameExtractor.delegate = self;
-        }
-        [frameExtractor processNextFrame];
+        [opQueue addOperationWithBlock:^(void){
+            if (frameExtractor.delegate == nil) {
+                frameExtractor.delegate = self;
+            }
+            [frameExtractor processNextFrame];
+        }];
     }
 }
 
@@ -186,7 +201,10 @@
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
     frameExtractor.delegate = nil;
     [playTimer invalidate];
-    [frameExtractor stop];
+    [opQueue cancelAllOperations];
+    [opQueue addOperationWithBlock:^(void){
+        [frameExtractor stop];
+    }];
 }
 
 @end
