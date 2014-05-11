@@ -77,15 +77,23 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jBg-GM-kop">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jBg-GM-kop">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="568" id="Mcz-YR-7OU"/>
+                                            <constraint firstAttribute="width" constant="320" id="Mha-Ky-quY"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="568" id="01A-aP-wOM"/>
-                                    <constraint firstAttribute="width" constant="320" id="e9n-Aq-tFy"/>
+                                    <constraint firstAttribute="trailing" secondItem="jBg-GM-kop" secondAttribute="trailing" id="MW3-Xt-coX"/>
+                                    <constraint firstAttribute="width" constant="320" id="PFE-0C-23A"/>
+                                    <constraint firstItem="jBg-GM-kop" firstAttribute="top" secondItem="PIC-kt-f9S" secondAttribute="top" id="XjN-4g-wg3"/>
+                                    <constraint firstItem="jBg-GM-kop" firstAttribute="leading" secondItem="PIC-kt-f9S" secondAttribute="leading" id="cWS-hZ-e7d"/>
+                                    <constraint firstAttribute="height" constant="568" id="g7U-TQ-8RT"/>
+                                    <constraint firstAttribute="bottom" secondItem="jBg-GM-kop" secondAttribute="bottom" id="ufW-ey-2TB"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="fAi-dC-y69"/>
@@ -116,11 +124,17 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="PIC-kt-f9S" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="1Gs-YT-Ehx"/>
-                            <constraint firstItem="PIC-kt-f9S" firstAttribute="leading" secondItem="S0m-H8-BNZ" secondAttribute="leading" id="6eM-Uf-UYa"/>
-                            <constraint firstItem="PIC-kt-f9S" firstAttribute="bottom" secondItem="S0m-H8-BNZ" secondAttribute="bottom" id="7VB-dF-UBC"/>
-                            <constraint firstItem="PIC-kt-f9S" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Jkn-df-kpL"/>
-                            <constraint firstItem="PIC-kt-f9S" firstAttribute="trailing" secondItem="S0m-H8-BNZ" secondAttribute="trailing" id="mz4-q0-7kj"/>
+                            <constraint firstAttribute="trailing" secondItem="PIC-kt-f9S" secondAttribute="trailing" id="1pD-te-WjB"/>
+                            <constraint firstItem="iAV-qm-adJ" firstAttribute="top" secondItem="PIC-kt-f9S" secondAttribute="bottom" id="7hX-Yf-Vm9"/>
+                            <constraint firstItem="PIC-kt-f9S" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="Jw7-FQ-hIu"/>
+                            <constraint firstItem="PIC-kt-f9S" firstAttribute="leading" secondItem="S0m-H8-BNZ" secondAttribute="leading" id="bC8-bT-uRo"/>
+                            <constraint firstItem="PIC-kt-f9S" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="frf-jP-939"/>
+                            <constraint firstItem="PIC-kt-f9S" firstAttribute="bottom" secondItem="S0m-H8-BNZ" secondAttribute="bottom" id="hgr-It-L88"/>
+                            <constraint firstItem="PIC-kt-f9S" firstAttribute="trailing" secondItem="S0m-H8-BNZ" secondAttribute="trailing" id="kcp-5H-w9x"/>
+                            <constraint firstAttribute="trailing" secondItem="PIC-kt-f9S" secondAttribute="trailing" id="mQU-vY-eFh"/>
+                            <constraint firstItem="PIC-kt-f9S" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="oQ9-iu-hxc"/>
+                            <constraint firstItem="PIC-kt-f9S" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="oVk-HL-rbt"/>
+                            <constraint firstAttribute="bottom" secondItem="PIC-kt-f9S" secondAttribute="bottom" id="sXw-NO-ALK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fbi-Ds-znX"/>

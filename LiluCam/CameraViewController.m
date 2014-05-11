@@ -12,7 +12,7 @@
 
 #define CGI_PROXY @"http://10.0.1.11:88/cgi-bin/CGIProxy.fcgi"
 
-@interface CameraViewController () <FFFrameExtractorDelegate, UIGestureRecognizerDelegate> {
+@interface CameraViewController () <FFFrameExtractorDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate> {
     FFFrameExtractor *frameExtractor;
     UIPinchGestureRecognizer *pinchGesture;
     FoscamCGIController *cameraController;
@@ -41,11 +41,6 @@
     
     // create tap gesture
     tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
-    //tapGesture.delegate = self;
-    tapGesture.numberOfTapsRequired = 1;
-    tapGesture.numberOfTouchesRequired = 1;
-    [tapGesture requireGestureRecognizerToFail:self.scrollView.panGestureRecognizer];
-    //[self.scrollView addGestureRecognizer:tapGesture];
     [self.scrollView addGestureRecognizer:tapGesture];
     _navigationHidden = NO;
     
@@ -175,6 +170,12 @@
 
 - (NSString *)rtspURL
 {
+    NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    BOOL wifi_preference = [standardUserDefaults boolForKey:@"wifi_preference"];
+    NSLog(@"WIFI preference: %@", wifi_preference ? @"Yes" : @"No");
+    if (!wifi_preference) {
+        return [NSString stringWithFormat:@"rtsp://%@:%@@%@/videoSub", self.username, self.password, self.url];
+    }
     return [NSString stringWithFormat:@"rtsp://%@:%@@%@/videoMain", self.username, self.password, self.url];
 }
 
