@@ -103,12 +103,12 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
         return NO;
     }
     
-    pFrame = avcodec_alloc_frame();
+    pFrame = av_frame_alloc();
     int sourceWidth = pCodecContext->width;
     int sourceHeight = pCodecContext->height;
     
     // setup picture and swscaler
-    imageConvertContext = sws_getContext(sourceWidth, sourceHeight, pCodecContext->pix_fmt, sourceWidth, sourceHeight, PIX_FMT_RGB24, SWS_FAST_BILINEAR, NULL, NULL, NULL);
+    imageConvertContext = sws_getContext(sourceWidth, sourceHeight, pCodecContext->pix_fmt, sourceWidth, sourceHeight, PIX_FMT_RGB24, SWS_FAST_BILINEAR | SWS_ACCURATE_RND, NULL, NULL, NULL);
     avpicture_alloc(&picture, PIX_FMT_RGB24, sourceWidth, sourceHeight);
     
     _running = YES;
@@ -125,8 +125,8 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
 {
     NSLog(@"FFFrameExtractor stopping");
     _running = NO;
-    //[self performSelector:@selector(cleanup) withObject:nil afterDelay:2];
-    [self cleanup];
+    [self performSelector:@selector(cleanup) withObject:nil afterDelay:2];
+    //[self cleanup];
     return YES;
 }
 
@@ -171,7 +171,7 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
     
     if (pFrame != NULL) {
         // need to clean pFrame buffer first
-        avcodec_free_frame(&pFrame);
+        av_frame_free(&pFrame);
         pFrame = NULL;
     }
     
@@ -258,16 +258,16 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
     (*pCodecContext)->error_concealment = FF_EC_GUESS_MVS | FF_EC_DEBLOCK;
     
     // set audio codec context and make sure codec exists
-    *pAudioCodecContext = (*pFormatContext)->streams[(unsigned int)audioStream]->codec;
-    pCodec = avcodec_find_decoder((*pAudioCodecContext)->codec_id);
-    if (pCodec == NULL) {
-        NSLog(@"Unsupported Audio Codec");
-        return -1;
-    }
-    if (avcodec_open2(*pAudioCodecContext, pCodec, NULL) < 0) {
-        NSLog(@"Couldn't open Audio Codec");
-        return -1;
-    }
+//    *pAudioCodecContext = (*pFormatContext)->streams[(unsigned int)audioStream]->codec;
+//    pCodec = avcodec_find_decoder((*pAudioCodecContext)->codec_id);
+//    if (pCodec == NULL) {
+//        NSLog(@"Unsupported Audio Codec");
+//        return -1;
+//    }
+//    if (avcodec_open2(*pAudioCodecContext, pCodec, NULL) < 0) {
+//        NSLog(@"Couldn't open Audio Codec");
+//        return -1;
+//    }
     
     return 0;
 }

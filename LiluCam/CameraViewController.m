@@ -140,6 +140,12 @@
 }
 
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
+
 #pragma mark - FFFrameExtractorDelegate
 
 - (void)updateWithCurrentUIImage:(UIImage *)image

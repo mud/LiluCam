@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1Ii-qk-osb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9058" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1Ii-qk-osb">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9048"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Stream Info View Controller - Lilu Cam-->
+        <!--Lilu Cam-->
         <scene sceneID="SOx-Xu-S20">
             <objects>
                 <viewController id="7bs-9m-xNi" customClass="StreamInfoViewController" sceneMemberID="viewController">
@@ -16,21 +18,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vqp-tf-VZL">
-                                <rect key="frame" x="18" y="78" width="285" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vqp-tf-VZL">
+                                <rect key="frame" x="14" y="78" width="293" height="30"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zwp-gQ-JBO">
-                                <rect key="frame" x="18" y="116" width="285" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zwp-gQ-JBO">
+                                <rect key="frame" x="14" y="116" width="293" height="30"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fj7-Q9-Cxy">
-                                <rect key="frame" x="136" y="230" width="49" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Host 10.0.1.11:88" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z6q-bL-pUO">
+                                <rect key="frame" x="14" y="154" width="293" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zwp-gQ-JBO" firstAttribute="top" secondItem="Vqp-tf-VZL" secondAttribute="bottom" constant="8" id="98L-7D-cen"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zwp-gQ-JBO" secondAttribute="trailing" constant="-3" id="COA-gs-zYn"/>
+                            <constraint firstItem="Vqp-tf-VZL" firstAttribute="leading" secondItem="GoY-bc-ga0" secondAttribute="leadingMargin" constant="-2" id="IuH-HR-Rbf"/>
+                            <constraint firstItem="zwp-gQ-JBO" firstAttribute="leading" secondItem="GoY-bc-ga0" secondAttribute="leadingMargin" constant="-2" id="R4n-ZJ-PWj"/>
+                            <constraint firstItem="z6q-bL-pUO" firstAttribute="top" secondItem="zwp-gQ-JBO" secondAttribute="bottom" constant="8" id="UCC-vM-4e5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Vqp-tf-VZL" secondAttribute="trailing" constant="-3" id="hoa-Fp-GTm"/>
+                            <constraint firstItem="z6q-bL-pUO" firstAttribute="leading" secondItem="GoY-bc-ga0" secondAttribute="leadingMargin" constant="-2" id="mt5-kJ-w25"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="z6q-bL-pUO" secondAttribute="trailing" constant="-3" id="pY6-MU-0BI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Vqp-tf-VZL" secondAttribute="trailing" constant="-3" id="siE-Ao-ZQA"/>
+                            <constraint firstItem="Vqp-tf-VZL" firstAttribute="top" secondItem="OQQ-Fq-vrE" secondAttribute="bottom" constant="14" id="v8B-6V-A1d"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Lilu Cam" id="Wj4-Jh-zUN">
+                        <barButtonItem key="backBarButtonItem" title="Stream Info" id="8e8-Cz-Elx"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="RJN-x6-Myb">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fj7-Q9-Cxy">
+                                <rect key="frame" x="255" y="7" width="49" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
                                 <state key="normal" title="Submit">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -38,17 +66,7 @@
                                     <action selector="submitLogin:" destination="7bs-9m-xNi" eventType="touchUpInside" id="fWb-L9-sda"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Host 10.0.1.11:88" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z6q-bL-pUO">
-                                <rect key="frame" x="18" y="154" width="285" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Lilu Cam" id="Wj4-Jh-zUN">
-                        <barButtonItem key="backBarButtonItem" title="Stream Info" id="8e8-Cz-Elx"/>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="passwordField" destination="zwp-gQ-JBO" id="eCN-v5-FZp"/>
@@ -75,24 +93,20 @@
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" maximumZoomScale="5" translatesAutoresizingMaskIntoConstraints="NO" id="PIC-kt-f9S">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jBg-GM-kop">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="568" id="Mcz-YR-7OU"/>
-                                            <constraint firstAttribute="width" constant="320" id="Mha-Ky-quY"/>
-                                        </constraints>
+                                        <animations/>
                                     </imageView>
                                 </subviews>
+                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="jBg-GM-kop" firstAttribute="centerX" secondItem="PIC-kt-f9S" secondAttribute="centerX" id="1Uj-x7-x2E"/>
+                                    <constraint firstItem="jBg-GM-kop" firstAttribute="centerY" secondItem="PIC-kt-f9S" secondAttribute="centerY" id="8J5-q0-A7T"/>
                                     <constraint firstAttribute="trailing" secondItem="jBg-GM-kop" secondAttribute="trailing" id="MW3-Xt-coX"/>
-                                    <constraint firstAttribute="width" constant="320" id="PFE-0C-23A"/>
                                     <constraint firstItem="jBg-GM-kop" firstAttribute="top" secondItem="PIC-kt-f9S" secondAttribute="top" id="XjN-4g-wg3"/>
                                     <constraint firstItem="jBg-GM-kop" firstAttribute="leading" secondItem="PIC-kt-f9S" secondAttribute="leading" id="cWS-hZ-e7d"/>
-                                    <constraint firstAttribute="height" constant="568" id="g7U-TQ-8RT"/>
                                     <constraint firstAttribute="bottom" secondItem="jBg-GM-kop" secondAttribute="bottom" id="ufW-ey-2TB"/>
                                 </constraints>
                                 <connections>
@@ -101,7 +115,7 @@
                             </scrollView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.79999999999999982" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S0m-H8-BNZ">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <animations/>
                                 <items>
                                     <barButtonItem title="Play" id="7AG-d7-Rx0">
                                         <connections>
@@ -122,6 +136,7 @@
                                 </items>
                             </toolbar>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="PIC-kt-f9S" secondAttribute="trailing" id="1pD-te-WjB"/>
@@ -157,6 +172,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BVK-xN-NFv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -168,9 +184,4 @@
             <point key="canvasLocation" x="-271" y="28"/>
         </scene>
     </scenes>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

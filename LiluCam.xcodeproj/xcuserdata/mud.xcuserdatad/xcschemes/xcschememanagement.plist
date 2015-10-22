@@ -9,9 +9,29 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>LiluCamTV.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>828B0E951BD89A72006A994E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>828B0EA51BD89A72006A994E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>828B0EB01BD89A72006A994E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>828E7115185CE3F800EA1F48</key>
 		<dict>
 			<key>primary</key>
