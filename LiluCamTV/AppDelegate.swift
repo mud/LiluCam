@@ -16,6 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        let standardUserDefaults:NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        let wifiPreference = standardUserDefaults.objectForKey("wifi_preference")
+        if wifiPreference != nil {
+            self.registerDefaultsFromSettingsBundle()
+        }
         return true
     }
 
@@ -39,6 +44,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func registerDefaultsFromSettingsBundle() {
+        // this function writes default settings as settings
+        if let settingsBundle = NSBundle.mainBundle().pathForResource("Settings", ofType: "bundle") {
+            
+            let settings = NSDictionary(contentsOfFile: settingsBundle.stringByAppendingString("Root.plist"))
+            let preferences:[NSDictionary] = settings?.objectForKey("PreferenceSpecifiers") as! [NSDictionary]
+            
+            var defaultsToRegister = [String: AnyObject]()
+            for prefSpecification in preferences {
+                if let key = prefSpecification.objectForKey("Key") as? String {
+                    defaultsToRegister[key] = prefSpecification.objectForKey("DefaultValue")
+                }
+            }
+            
+            NSUserDefaults.standardUserDefaults().registerDefaults(defaultsToRegister)
+        }
+        
+        
     }
 
 
