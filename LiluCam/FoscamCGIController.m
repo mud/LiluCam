@@ -32,8 +32,8 @@ NSString* const LCCameraReset           = @"ptzReset";
 {
     NSMutableString *str = nil;
     for (NSString *key in self) {
-        NSString *escapeKey = [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *escapeValue = [[self objectForKey:key] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *escapeKey = [key stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet];
+        NSString *escapeValue = [[self objectForKey:key] stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet];
         
         if (str == nil) {
             str = [[NSMutableString alloc] initWithFormat:@"%@=%@", escapeKey, escapeValue];

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @protocol FFFrameExtractorDelegate <NSObject>
 
@@ -27,5 +28,6 @@
 
 @property (strong, nonatomic) NSString *inputPath;
 @property (weak, nonatomic) id delegate;
+@property (assign, nonatomic) UIImageOrientation imageOrientation;
 
 @end

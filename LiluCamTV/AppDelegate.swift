@@ -16,11 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        let standardUserDefaults:NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        let wifiPreference = standardUserDefaults.objectForKey("wifi_preference")
-        if wifiPreference != nil {
-            self.registerDefaultsFromSettingsBundle()
-        }
+        self.registerDefaultsFromSettingsBundle()
         return true
     }
 
@@ -48,9 +44,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func registerDefaultsFromSettingsBundle() {
         // this function writes default settings as settings
-        if let settingsBundle = NSBundle.mainBundle().pathForResource("Settings", ofType: "bundle") {
+        if let settingsBundle = NSBundle.mainBundle().URLForResource("Settings", withExtension: "bundle") {
             
-            let settings = NSDictionary(contentsOfFile: settingsBundle.stringByAppendingString("Root.plist"))
+            let settings = NSDictionary(contentsOfURL: settingsBundle.URLByAppendingPathComponent("Root.plist"))
             let preferences:[NSDictionary] = settings?.objectForKey("PreferenceSpecifiers") as! [NSDictionary]
             
             var defaultsToRegister = [String: AnyObject]()

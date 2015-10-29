@@ -53,6 +53,7 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
         self.inputPath = path;
         _running = NO;
         _firstTime = YES;
+        self.imageOrientation = UIImageOrientationRight;
     }
     return self;
 }
@@ -292,8 +293,7 @@ int8_t SetupAVContextForURL(AVFormatContext **pFormatContext, AVCodecContext **p
     CGImageRef cgImage = CGImageCreate(width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, colorSpace, bitmapInfo, dataProvider, NULL, NO, kCGRenderingIntentDefault);
     
     // create the UIImage
-    UIImage *image = [UIImage imageWithCGImage:cgImage scale:1 orientation:UIImageOrientationRight];
-    //UIImage *image = [UIImage imageWithCGImage:cgImage];
+    UIImage *image = [UIImage imageWithCGImage:cgImage scale:1 orientation:self.imageOrientation];
     
     // release the suckers
     CGImageRelease(cgImage);

@@ -13,11 +13,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *wifi_preference = [standardUserDefaults objectForKey:@"wifi_preference"];
-    if (!wifi_preference) {
-        [self registerDefaultsFromSettingsBundle];
-    }
+    [self registerDefaultsFromSettingsBundle];
     return YES;
 }
 							
